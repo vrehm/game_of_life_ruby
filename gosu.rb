@@ -2,7 +2,7 @@ require 'gosu'
 require_relative 'game_of_life.rb'
 
 class GameOfLifeWindow < Gosu::Window
-  def initialize(width=800, height=600)
+  def initialize(width=1280, height=800)
     @width = width
     @height = height
     super width, height, false
@@ -63,14 +63,14 @@ class GameOfLifeWindow < Gosu::Window
               width, height, @background_color,
               0, height, @background_color)
   end
-  
+
   def draw_alive_cell(x_start, y_start)
     draw_quad(x_start, y_start, @alive_color,
               x_start+(@col_width-1), y_start, @alive_color,
               x_start+(@col_width-1), y_start+(@row_height-1), @alive_color,
               x_start, y_start+(@row_height-1), @alive_color)
   end
-  
+
   def draw_dead_cell(x_start, y_start)
     draw_quad(x_start, y_start, @dead_color,
               x_start+(@col_width-1), y_start, @dead_color,

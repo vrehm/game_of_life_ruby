@@ -1,4 +1,7 @@
 # Game of Life
+require 'pry'
+require 'pry-byebug'
+require_relative 'glider.rb'
 
 class Game
   attr_accessor :world, :seeds
@@ -115,11 +118,39 @@ class World
   end
 
   def randomly_populate
-    cells.each do |cell|
-      cell.alive = [true, false].sample
+    if ARGV[0] == "glider"
+      # g = Glider.new
+      # g.double
+      # g.double
+      glider_matrix = Glider::GLIDER_MATRIX
+      glider_matrix.each_with_index do |row, i|
+        row.each_with_index do |col, n|
+          if col == 1
+            cell_to_active = cells.find { |cell| cell.x == n && cell.y == i }
+            cell_to_active.alive = true
+          end
+        end
+      end
+    else
+      cells.each do |cell|
+        probability = rand(100) + 1
+        neighbour_count = self.live_neighbours_around_cell(cell).count
+        if neighbour_count > 1
+          case probability
+            when  1..20   then cell.alive = false
+            when 20..80   then cell.alive = true
+            when 80..100  then cell.alive = false
+          end
+        else
+          case probability
+            when  1..65   then cell.alive = false
+            when 65..75   then cell.alive = true
+            when 75..100  then cell.alive = false
+          end
+        end
+      end
     end
   end
-
 end
 
 class Cell
