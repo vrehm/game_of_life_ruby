@@ -1,6 +1,4 @@
 # Game of Life
-require 'pry'
-require 'pry-byebug'
 require_relative 'glider.rb'
 
 class Game
